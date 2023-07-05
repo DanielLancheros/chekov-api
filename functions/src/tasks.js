@@ -20,7 +20,7 @@ export async function addTask (req, res) {
     }
     const newTask = {
         title, uid, done: false,
-        createdAt: ,
+        createdAt: FieldValue.serverTimestamp(),
     }
-    await coll.add();
+    await coll.add(newTask);
 }
