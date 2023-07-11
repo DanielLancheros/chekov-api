@@ -8,8 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 // routes: 
-app.get('/tasks:uid', getTasks);
-app.post('/tasks:uid', addTask);
+app.get('/tasks/:uid', getTasks);
+app.post('/tasks/:uid', addTask);
 
 export const api = onRequest(app); // exports cloud function
 

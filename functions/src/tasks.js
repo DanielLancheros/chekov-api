@@ -12,6 +12,7 @@ export async function getTasks(req, res) {
     res.send(taskArray);
 }
 
+// Add Task
 export async function addTask (req, res) {
     const { title, uid } = req.body;
     if(!title || !uid) {
@@ -19,8 +20,28 @@ export async function addTask (req, res) {
         return;
     }
     const newTask = {
-        title, uid, done: false,
+        title, 
+        uid, 
+        done: false,
         createdAt: FieldValue.serverTimestamp(),
     }
     await coll.add(newTask);
+    getTasks(req, res);
+}
+
+// update tasks
+export async function updateTask (req, res) {
+    const { done, id } = req.body;
+    if(!id) {
+        res.status(401).send({success: false, message: "Not a valid request"});
+    return;
+}
+
+const updates = {
+    done,
+    updatedAt: FieldValue.serverTimestamp()
+}
+
+await coll.doc(id).update(updates);
+
 }
