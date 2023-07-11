@@ -31,8 +31,11 @@ export async function addTask (req, res) {
 
 // update tasks
 export async function updateTask (req, res) {
+    const { uid } = req.params;
     const { done, id } = req.body;
-    if(!id) {
+
+    
+    if(!uid) {
         res.status(401).send({success: false, message: "Not a valid request"});
     return;
 }
@@ -44,4 +47,5 @@ const updates = {
 
 await coll.doc(id).update(updates);
 
+getTasks(req.res);
 }
